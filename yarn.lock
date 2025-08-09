@@ -1868,9 +1868,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"frontend@workspace:.":
+"livy-frontend@workspace:.":
   version: 0.0.0-use.local
-  resolution: "frontend@workspace:."
+  resolution: "livy-frontend@workspace:."
   dependencies:
     "@eslint/compat": "npm:^1.2.5"
     "@eslint/js": "npm:^9.18.0"
@@ -1897,6 +1897,7 @@ __metadata:
     typescript: "npm:^5.0.0"
     typescript-eslint: "npm:^8.20.0"
     vite: "npm:^7.0.4"
+    maplibre-gl: "npm:^4.0.0"
   languageName: unknown
   linkType: soft
 
