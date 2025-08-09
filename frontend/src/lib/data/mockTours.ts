@@ -1,4 +1,4 @@
-import type { Tour } from '$lib/types';
+import type { Tour } from '../../routes/tours/[slug]/types';
 
 export const mockTours: Tour[] = [
   {
