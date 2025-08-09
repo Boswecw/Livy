@@ -1,0 +1,55 @@
+/* app.postcss (or src/app.css) - Tailwind v4 approach */
+@import "tailwindcss";
+
+/* Define your custom design tokens */
+@theme {
+  --color-livy-black: #1c1c1c;
+  --color-livy-parchment: #f8f6f1;
+  --color-livy-stone: #a6a6a6;
+  --color-livy-gold: #c8a165;
+  
+  --font-family-serif: "Crimson Text", Georgia, serif;
+  --font-family-sans: Inter, system-ui, sans-serif;
+  
+  --spacing-roman: 2.5rem;
+  --border-radius-roman: 0.5rem;
+}
+
+/* Custom utilities for Roman design elements */
+@utility roman-column {
+  background: linear-gradient(to bottom, var(--color-livy-stone), var(--color-livy-stone));
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    right: -2px;
+    height: 8px;
+    background: var(--color-livy-stone);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    height: 12px;
+    background: var(--color-livy-stone);
+  }
+}
+
+@utility roman-shadow {
+  box-shadow: 0 4px 6px -1px rgb(28 28 28 / 0.1), 0 2px 4px -1px rgb(28 28 28 / 0.06);
+}
+
+/* Base styles */
+@layer base {
+  body {
+    background-color: var(--color-livy-parchment);
+    color: var(--color-livy-black);
+    font-family: var(--font-family-sans);
+  }
+}

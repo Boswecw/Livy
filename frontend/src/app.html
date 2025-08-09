@@ -1,0 +1,27 @@
+<!-- src/app.html - Updated favicon paths -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Static assets served from /static; use %sveltekit.assets% -->
+    <link rel="icon" href="%sveltekit.assets%/icons/favicon.ico" />
+    <link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/icons/apple-touch-icon.png" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#c8a165" />
+
+    <!-- Keep Apple tag for iOS; add cross-platform tag to satisfy Lighthouse -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Livy" />
+
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

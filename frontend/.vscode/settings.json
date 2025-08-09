@@ -1,0 +1,14 @@
+{
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "css.lint.validProperties": [],
+    "css.lint.unknownAtRules": "ignore",
+    "tailwindCSS.experimental.configFile": null,
+    "tailwindCSS.includeLanguages": {
+      "svelte": "html"
+    },
+    "files.associations": {
+      "*.css": "tailwindcss"
+    }
+  }

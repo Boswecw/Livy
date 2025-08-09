@@ -1,0 +1,167 @@
+/* src/app.css - Simple test to see if ANY CSS is loading */
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Test styling - should show red background if CSS loads */
+  body {
+    background-color: #f8f6f1; /* Livy parchment */
+    color: #1c1c1c; /* Livy black */
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Test class */
+  .test-styles {
+    background-color: #c8a165; /* Livy gold */
+    padding: 1rem;
+    border-radius: 8px;
+    color: #1c1c1c;
+  }
+  
+  /* Livy navigation */
+  nav {
+    background-color: #f8f6f1;
+    border-bottom: 1px solid #a6a6a6;
+    padding: 1rem;
+  }
+  
+  .nav-link {
+    color: #1c1c1c;
+    text-decoration: none;
+    margin-right: 2rem;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    color: #c8a165;
+  }
+  
+  /* Simple responsive grid */
+  .content-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .hero-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, rgba(166, 166, 166, 0.1), #f8f6f1);
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1c1c1c;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #a6a6a6;
+    margin-bottom: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1c1c1c;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(166, 166, 166, 0.2);
+    margin-bottom: 2rem;
+  }
+  
+  .btn-primary {
+    background-color: #c8a165;
+    color: #1c1c1c;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1c1c1c;
+    color: #f8f6f1;
+  }
+
+  /* Applies to all social icons inside your gold circles */
+.social-links img {
+  width: 32px;        /* or 36px if you want bigger */
+  height: 32px;
+  object-fit: contain; /* keeps proportions without cropping */
+}
+
+/* Papyrus container */
+.about-papyrus {
+  background-color: #e3d324;
+  background-image: url('/textures/shine-caro.png'); /* put file in static/textures/ */
+  background-repeat: repeat;
+  color: #2a1f14;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.3);
+  max-width: 900px;
+  margin: 0 auto; /* centers inside .container */
+  line-height: 1.75;
+  font-family: Georgia, 'Times New Roman', serif;
+  position: relative;
+}
+
+/* Subtle inner vignette for readability */
+.about-papyrus::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,.06), transparent 55%),
+    radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,.06), transparent 55%);
+  border-radius: 12px;
+}
+
+.about-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  text-align: center;
+  margin: 0 0 .5rem;
+}
+
+.about-kicker { text-align: center; color: #4b3e25; margin: 0 0 1.25rem; }
+.about-outro { margin-top: 1rem; font-weight: 500; }
+.br-md { display: none; }
+
+/* Laurel divider accent */
+.laurel {
+  display: block;
+  width: min(320px, 80%);
+  margin: .25rem auto 1rem;
+  color: #c8a165;
+}
+
+/* Normalize social icon sizes inside papyrus section */
+.about-papyrus .social-links img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+@media (min-width: 720px) {
+  .br-md { display: inline; }
+}
