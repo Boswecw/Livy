@@ -4,7 +4,6 @@
   
   <svelte:head>
     <title>Map - Livy</title>
-    <link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
   </svelte:head>
   
   <div class="space-y-6">
