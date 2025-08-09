@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import maplibregl from 'maplibre-gl';
+    import 'maplibre-gl/dist/maplibre-gl.css';
     
     export let center: [number, number] = [-84.5, 38.05]; // Lexington, KY
     export let zoom: number = 14;
