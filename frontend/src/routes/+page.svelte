@@ -1,7 +1,7 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
   import Navigation from '$lib/components/Navigation.svelte';
-
+  import laurelLogo from '$lib/assets/logos/laurel-logo.svg';
   // Satisfy Svelte's prop checks (even if you don't use them)
   export let data: unknown;
   export let params: Record<string, string>;
@@ -21,10 +21,26 @@
   <div class="absolute inset-0 bg-gradient-to-b from-stone-900 via-stone-800 to-amber-900"></div>
 
   <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <!-- Large Logo -->
+    <!-- Large Gold Circle with Laurel Wreath Overlay -->
     <div class="flex justify-center mb-8">
-      <div class="w-32 h-32 bg-amber-400 rounded-full flex items-center justify-center shadow-2xl shadow-amber-400/30">
-        <span class="text-stone-900 font-serif font-bold text-6xl">L</span>
+      <div class="hero-logo-container relative">
+        <!-- Gold Circle Background -->
+        <div class="w-32 h-32 bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 rounded-full shadow-2xl shadow-amber-400/40"></div>
+        
+        <!-- Your Laurel Wreath Logo Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <!-- Replace this img src with your laurel wreath logo file -->
+          <img 
+            src={laurelLogo} 
+            alt="Livy Laurel Wreath Logo" 
+            class="w-100 h-100 filter drop-shadow-lg"
+          />
+          <!-- Alternative if you're using SVG directly:
+          <svg width="96" height="96" viewBox="0 0 496 496" class="hero-laurel-overlay">
+            Your SVG content here
+          </svg>
+          -->
+        </div>
       </div>
     </div>
 
@@ -100,3 +116,55 @@
     </div>
   </div>
 </section>
+
+<style>
+  .hero-logo-container {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    animation: heroGlow 4s ease-in-out infinite alternate;
+  }
+  
+  .hero-logo-container:hover {
+    transform: scale(1.05);
+  }
+  
+  .hero-logo-container::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: backgroundPulse 6s ease-in-out infinite alternate;
+  }
+  
+  .hero-laurel-overlay {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s ease;
+  }
+  
+  .hero-logo-container:hover .hero-laurel-overlay {
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
+  }
+  
+  @keyframes heroGlow {
+    from {
+      filter: drop-shadow(0 8px 16px rgba(251, 191, 36, 0.4));
+    }
+    to {
+      filter: drop-shadow(0 12px 24px rgba(251, 191, 36, 0.6));
+    }
+  }
+  
+  @keyframes backgroundPulse {
+    from {
+      transform: scale(0.8);
+      opacity: 0.3;
+    }
+    to {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+  }
+</style>

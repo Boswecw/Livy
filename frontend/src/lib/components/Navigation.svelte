@@ -1,8 +1,8 @@
-<!-- src/lib/components/Navigation.svelte - FIXED -->
+<!-- src/lib/components/Navigation.svelte - Gold Circle with Laurel Overlay -->
 <script>
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  
+  import laurelLogo from '$lib/assets/logos/laurel-logo.svg';
   let mobileMenuOpen = false;
   let scrolled = false;
 
@@ -32,12 +32,28 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       
-      <!-- Logo -->
+      <!-- Logo with Gold Circle + Laurel Overlay -->
       <div class="flex items-center">
         <a href="/" class="flex items-center space-x-3 group">
-          <!-- Simple Laurel Logo -->
-          <div class="w-10 h-10 bg-amber-400 rounded-full flex items-center justify-center group-hover:bg-amber-300 transition-colors">
-            <span class="text-stone-900 font-serif font-bold text-lg">L</span>
+          <!-- Gold Circle with Laurel Wreath Overlay -->
+          <div class="relative w-10 h-10 group-hover:scale-110 transition-transform duration-300">
+            <!-- Gold Circle Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full shadow-lg group-hover:shadow-amber-400/50 transition-all duration-300"></div>
+            
+            <!-- Your Laurel Wreath Logo Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <!-- Replace this img src with your laurel wreath logo file -->
+              <img 
+                src={laurelLogo} 
+                alt="Livy Logo" 
+                class="w-14 h-14 filter drop-shadow-sm"
+              />
+              <!-- Alternative if you're using SVG directly:
+              <svg width="32" height="32" viewBox="0 0 496 496" class="laurel-overlay">
+                Your SVG content here
+              </svg>
+              -->
+            </div>
           </div>
           <span class="text-2xl font-serif text-amber-100 group-hover:text-amber-300 transition-colors font-bold">
             LIVY
@@ -111,3 +127,14 @@
     </div>
   {/if}
 </nav>
+
+<style>
+  .laurel-overlay {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+  }
+  
+  .group:hover .laurel-overlay {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+</style>
