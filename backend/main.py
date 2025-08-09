@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi import UploadFile, File
+from hashlib import sha256
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
@@ -18,26 +19,44 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# In-memory user store with hashed passwords for demo purposes
+users_db = {
+    "alice": sha256("secret".encode()).hexdigest(),
+}
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     init_db()
+
 
 @app.get("/")
 def read_root():
     return {"status": "ok"}
 
+
 @app.post("/token")
-def login(form_data: OAuth2PasswordRequestForm = Depends()):
+def login(form_data: OAuth2PasswordRequestForm):
+    """Authenticate user and issue an access token."""
+
+    hashed_pw = sha256(form_data.password.encode()).hexdigest()
+    if users_db.get(form_data.username) != hashed_pw:
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+
     access_token = create_access_token({"sub": form_data.username})
     return {"access_token": access_token, "token_type": "bearer"}
+
 
 @app.get("/secure")
 def secure(current_user: str = Depends(get_current_user)):
     return {"user": current_user}
 
+
 @app.post("/upload-url")
 def upload_url(filename: str):
     return {"url": get_presigned_url(filename)}
+
 
 @app.post("/rag")
 def rag(query: str, db: Session = Depends(get_db)):
