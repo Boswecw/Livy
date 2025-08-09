@@ -1,0 +1,9 @@
+{
+  "venvPath": "/home/charles/projects/Livy/backend",
+  "venv": "venv",
+  "executionEnvironments": [
+    { "root": "./backend" }
+  ]
+}
+
+

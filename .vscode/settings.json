@@ -1,0 +1,19 @@
+{
+    "python.defaultInterpreterPath": "/home/charles/projects/Livy/backend/venv/bin/python",
+    "python.analysis.extraPaths": ["./backend"],
+    "cSpell.words": [
+        "caro",
+        "Condita",
+        "faneuil",
+        "Livius",
+        "livyhistory",
+        "maplibre",
+        "maplibregl",
+        "munroe",
+        "Patavium",
+        "starturl",
+        "Urbe",
+        "venv"
+    ]
+  }
+  
