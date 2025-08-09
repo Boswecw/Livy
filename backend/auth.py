@@ -3,7 +3,19 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel
+
+
+class OAuth2PasswordRequestForm(BaseModel):
+    """Simplified OAuth2 password request form.
+
+    Uses a JSON body instead of form data to avoid requiring the
+    ``python-multipart`` package during testing.
+    """
+
+    username: str
+    password: str
 import jwt
 
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")
