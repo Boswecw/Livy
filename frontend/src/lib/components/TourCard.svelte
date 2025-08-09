@@ -118,28 +118,44 @@
 
 <style>
   .tour-card {
-    @apply relative overflow-hidden rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    transform: scale(1);
     background: linear-gradient(135deg, #fef7cd 0%, #fde68a 100%);
     border: 2px solid rgba(245, 158, 11, 0.3);
   }
 
   .tour-card:hover {
+    transform: scale(1.02);
     box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
   }
 
   .card-content {
-    @apply relative z-10 h-full;
+    position: relative;
+    z-index: 10;
+    height: 100%;
   }
 
   .image-container {
-    @apply relative overflow-hidden;
+    position: relative;
+    overflow: hidden;
     height: 200px;
   }
 
   .tour-image {
-    @apply w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-110;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
     background-color: #8b7355;
     position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .group:hover .tour-image {
+    transform: scale(1.1);
   }
 
   .tour-image::after {
@@ -150,65 +166,135 @@
   }
 
   .premium-badge {
-    @apply absolute top-3 left-3 bg-amber-500 text-amber-900 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 z-10;
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background-color: rgb(245 158 11);
+    color: rgb(146 64 14);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    z-index: 10;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
   }
 
   .difficulty-badge {
-    @apply absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold z-10;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
   }
 
   .card-body {
-    @apply p-6 space-y-4;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .historical-era {
-    @apply text-amber-700 text-sm font-serif font-medium uppercase tracking-wide;
+    color: rgb(180 83 9);
+    font-size: 0.875rem;
+    font-family: serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .tour-title {
-    @apply text-xl font-serif font-bold text-stone-800 leading-tight;
+    font-size: 1.25rem;
+    font-family: serif;
+    font-weight: 700;
+    color: rgb(41 37 36);
+    line-height: 1.25;
   }
 
   .location {
-    @apply flex items-center gap-2 text-stone-600 text-sm;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgb(87 83 78);
+    font-size: 0.875rem;
   }
 
   .tour-description {
-    @apply text-stone-700 text-sm leading-relaxed line-clamp-2;
+    color: rgb(68 64 60);
+    font-size: 0.875rem;
+    line-height: 1.625;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .tour-stats {
-    @apply flex items-center justify-between text-stone-600 text-sm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(87 83 78);
+    font-size: 0.875rem;
   }
 
   .stat {
-    @apply flex items-center gap-1;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .tour-tags {
-    @apply flex flex-wrap gap-2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .tag {
-    @apply bg-stone-200 text-stone-700 px-2 py-1 rounded-md text-xs font-medium;
+    background-color: rgb(231 229 228);
+    color: rgb(68 64 60);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
   .card-actions {
-    @apply pt-2;
+    padding-top: 0.5rem;
   }
 
   .tour-action-btn {
-    @apply w-full bg-amber-600 hover:bg-amber-700 text-amber-50 px-4 py-3 rounded-lg font-serif font-medium transition-all duration-200 flex items-center justify-center gap-2;
+    width: 100%;
+    background-color: rgb(217 119 6);
+    color: rgb(254 243 199);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-family: serif;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
   }
 
   .tour-action-btn:hover {
+    background-color: rgb(180 83 9);
     box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
   }
 
   .roman-border {
-    @apply absolute inset-0 pointer-events-none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background-image: 
       linear-gradient(45deg, transparent 40%, rgba(139, 69, 19, 0.1) 50%, transparent 60%),
       linear-gradient(-45deg, transparent 40%, rgba(139, 69, 19, 0.1) 50%, transparent 60%);

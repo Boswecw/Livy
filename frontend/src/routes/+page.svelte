@@ -4,6 +4,14 @@
   import type { Tour } from '$lib/types';
   import TourCard from '$lib/components/TourCard.svelte';
   import Navigation from '$lib/components/Navigation.svelte';
+  
+  // Import tour images
+  import lexingtonHeritageTour from '$lib/assets/tours/lexington-heritage-tour.jpg';
+  import louisvilleRiverfrontTour from '$lib/assets/tours/louisville-riverfront-tour.jpg';
+
+  // SvelteKit props (to prevent warnings)
+  export let data = undefined;
+  export let params = undefined;
 
   let featuredTours: Tour[] = [];
   let loading = true;
@@ -22,7 +30,7 @@
         duration: 90,
         distance: 1.5,
         stops: [],
-        imageUrl: '/images/lexington-battle-green.jpg',
+        imageUrl: lexingtonHeritageTour,
         isPremium: false,
         tags: ['Revolutionary War', 'Colonial History', 'Walking Tour'],
         historicalEra: '1775-1783',
@@ -30,19 +38,19 @@
       },
       {
         id: '2', 
-        slug: 'boston-freedom-trail',
-        title: 'Boston Freedom Trail',
-        description: 'Follow the red brick road through 16 historically significant sites that tell the story of the American Revolution. A premium audio experience with expert historians.',
-        shortDescription: 'The complete Revolutionary Boston experience',
-        region: 'Boston, MA',
-        difficulty: 'Moderate',
-        duration: 180,
-        distance: 2.5,
+        slug: 'louisville-riverfront-heritage',
+        title: 'Louisville Riverfront Heritage',
+        description: 'Explore the historic Ohio River waterfront where Louisville began. From steamboat era commerce to modern development, discover the stories of trade, transportation, and transformation along the river that built a city.',
+        shortDescription: 'Historic riverfront and steamboat legacy',
+        region: 'Louisville, KY',
+        difficulty: 'Easy',
+        duration: 120,
+        distance: 2.0,
         stops: [],
-        imageUrl: '/images/boston-freedom-trail.jpg',
+        imageUrl: louisvilleRiverfrontTour,
         isPremium: true,
-        tags: ['Revolutionary War', 'Premium', 'Urban History'],
-        historicalEra: '1630-1776',
+        tags: ['Riverfront History', 'Steamboat Era', 'Commerce'],
+        historicalEra: '1800-1900',
         featured: true
       }
     ];
@@ -67,33 +75,76 @@
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
       <div class="text-center">
-        <!-- Laurel Crown Logo -->
+        <!-- Laurel Wreath Logo (same as navbar) -->
         <div class="flex justify-center mb-8">
-          <div class="laurel-crown">
-            <svg width="120" height="80" viewBox="0 0 120 80" class="text-amber-400">
-              <path d="M20 40 Q35 20, 50 40 Q65 20, 80 40 Q95 20, 110 40" 
-                    stroke="currentColor" stroke-width="3" fill="none"/>
-              <path d="M20 40 Q35 60, 50 40 Q65 60, 80 40 Q95 60, 110 40" 
-                    stroke="currentColor" stroke-width="3" fill="none"/>
-              <text x="60" y="50" text-anchor="middle" class="text-xl font-serif fill-current">LIVY</text>
+          <div class="laurel-hero-logo">
+            <svg width="120" height="120" viewBox="0 0 120 120" class="text-amber-400">
+              <!-- Left laurel branch -->
+              <path d="M20 60 Q25 30, 40 42 Q45 54, 42 60 Q45 66, 40 78 Q25 90, 20 60" 
+                    fill="currentColor" opacity="0.9"/>
+              <path d="M40 60 Q45 36, 54 45 Q57 54, 54 60 Q57 66, 54 75 Q45 84, 40 60" 
+                    fill="currentColor" opacity="0.8"/>
+              <path d="M54 60 Q57 42, 62 48 Q64 54, 62 60 Q64 66, 62 72 Q57 78, 54 60" 
+                    fill="currentColor" opacity="0.7"/>
+              
+              <!-- Right laurel branch -->
+              <path d="M100 60 Q95 30, 80 42 Q75 54, 78 60 Q75 66, 80 78 Q95 90, 100 60" 
+                    fill="currentColor" opacity="0.9"/>
+              <path d="M80 60 Q75 36, 66 45 Q63 54, 66 60 Q63 66, 66 75 Q75 84, 80 60" 
+                    fill="currentColor" opacity="0.8"/>
+              <path d="M66 60 Q63 42, 58 48 Q56 54, 58 60 Q56 66, 58 72 Q63 78, 66 60" 
+                    fill="currentColor" opacity="0.7"/>
+              
+              <!-- Center Letter L -->
+              <text x="60" y="72" text-anchor="middle" class="text-4xl font-serif font-bold fill-current">L</text>
+              
+              <!-- Decorative outer ring -->
+              <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+              
+              <!-- Small decorative elements -->
+              <circle cx="60" cy="20" r="2" fill="currentColor" opacity="0.6"/>
+              <circle cx="60" cy="100" r="2" fill="currentColor" opacity="0.6"/>
             </svg>
           </div>
         </div>
 
-        <h1 class="text-5xl md:text-7xl font-serif text-amber-100 mb-6 tracking-wide">
-          History Comes <span class="text-amber-400">Alive</span>
+        <!-- LIVY Text (now separate from logo) -->
+        <h1 class="text-6xl md:text-8xl font-serif text-amber-100 mb-4 tracking-wider">
+          LIVY
         </h1>
         
+        <!-- Tagline -->
+        <div class="flex justify-center mb-6">
+          <div class="bg-gradient-to-r from-transparent via-amber-400 to-transparent h-px w-64 mb-4"></div>
+        </div>
+        <p class="text-xl md:text-2xl text-amber-300 mb-2 font-serif italic tracking-wide">
+          THE TRAIL OF HISTORY
+        </p>
+        
+        <!-- Main Headline -->
+        <h2 class="text-4xl md:text-6xl font-serif text-amber-100 mb-6 tracking-wide">
+          History Where You <span class="text-amber-400">Stand</span>
+        </h2>
+        
         <p class="text-xl md:text-2xl text-stone-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Experience the past where it happened. Immersive audio tours powered by location awareness and AI storytelling.
+          Experience the past like never before with immersive, location-aware 
+          historical tours that bring stories to life exactly where they happened. Walk 
+          through time with GPS precision, expert narratives, and AI-enhanced insights 
+          that transform ordinary streets into extraordinary journeys through history.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button class="roman-button primary">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
             <span>Explore Tours</span>
           </button>
           <button class="roman-button secondary">
-            <span>Learn More</span>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Discover More</span>
           </button>
         </div>
       </div>
@@ -170,23 +221,54 @@
     height: 100%;
   }
 
-  .laurel-crown {
-    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+  .laurel-hero-logo {
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.5));
+    animation: gentle-float 6s ease-in-out infinite;
+  }
+
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
   }
 
   .roman-button {
-    @apply px-8 py-4 font-serif text-lg font-medium rounded-lg transition-all duration-300 transform hover:scale-105;
+    padding: 2rem 2rem;
+    font-family: serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    transform: scale(1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .roman-button:hover {
+    transform: scale(1.05);
   }
 
   .roman-button.primary {
-    @apply bg-amber-600 text-stone-900 hover:bg-amber-500;
+    background-color: rgb(217 119 6);
+    color: rgb(41 37 36);
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
   }
 
+  .roman-button.primary:hover {
+    background-color: rgb(245 158 11);
+  }
+
   .roman-button.secondary {
-    @apply bg-transparent text-amber-100 border-2 border-amber-400 hover:bg-amber-400 hover:text-stone-900;
+    background-color: transparent;
+    color: rgb(254 243 199);
+    border: 2px solid rgb(251 191 36);
+  }
+
+  .roman-button.secondary:hover {
+    background-color: rgb(251 191 36);
+    color: rgb(41 37 36);
   }
 
   .roman-button::before {
@@ -196,8 +278,8 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
   }
 
   .roman-button:hover::before {
@@ -205,7 +287,10 @@
   }
 
   .parchment-card {
-    @apply bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-xl shadow-lg;
+    background: linear-gradient(to bottom right, rgb(254 252 232), rgb(254 243 199));
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     position: relative;
     background-image: 
       radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
@@ -227,7 +312,8 @@
   }
 
   .feature-card {
-    @apply text-center p-6;
+    text-align: center;
+    padding: 1.5rem;
     background: linear-gradient(135deg, rgba(41, 37, 36, 0.8), rgba(68, 64, 60, 0.6));
     border-radius: 12px;
     border: 1px solid rgba(245, 158, 11, 0.2);
@@ -235,7 +321,17 @@
   }
 
   .feature-icon {
-    @apply text-4xl mb-4;
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
     filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+  }
+
+  /* Enhanced text effects */
+  h1 {
+    text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+  }
+
+  h2 {
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
   }
 </style>
