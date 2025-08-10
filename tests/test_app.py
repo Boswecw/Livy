@@ -1,6 +1,12 @@
 from fastapi.testclient import TestClient
 
-from backend.main import app
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from backend.main import app, users_db
+from passlib.hash import bcrypt
 
 client = TestClient(app)
 
@@ -10,6 +16,8 @@ def test_root():
     assert response.json() == {"status": "ok"}
 
 def test_token_auth_flow():
+    # Ensure the stored password is bcrypt-hashed
+    assert bcrypt.verify("secret", users_db["alice"])
     response = client.post("/token", data={"username": "alice", "password": "secret"})
     assert response.status_code == 200
     token = response.json()["access_token"]
