@@ -1,41 +1,60 @@
-from fastapi.testclient import TestClient
-
+# tests/test_api.py
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
-from backend.main import app, users_db
+from fastapi.testclient import TestClient
 from passlib.hash import bcrypt
+
+# Make "backend" importable when running `pytest` from repo root
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+# App + dependencies
+from backend.main import app, users_db  # type: ignore
+
+# Pydantic response models
+from backend.schemas import (  # type: ignore
+    RootResponse,
+    SecureResponse,
+    TokenResponse,
+    UploadURLResponse,
+)
 
 client = TestClient(app)
 
+
 def test_root():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    resp = client.get("/")
+    assert resp.status_code == 200
+    data = RootResponse.model_validate(resp.json())
+    assert data.status == "ok"
+
 
 def test_token_auth_flow():
-    # Ensure the stored password is bcrypt-hashed
+    # Ensure the stored password is bcrypt-hashed (and matches "secret")
+    assert "alice" in users_db, "Expected 'alice' to exist in users_db"
     assert bcrypt.verify("secret", users_db["alice"])
-    response = client.post("/token", data={"username": "alice", "password": "secret"})
-    assert response.status_code == 200
-    token = response.json()["access_token"]
 
+    # Acquire token
+    resp = client.post("/token", data={"username": "alice", "password": "secret"})
+    assert resp.status_code == 200
+    token = TokenResponse.model_validate(resp.json()).access_token
+
+    # Hit secure endpoint
     secure = client.get("/secure", headers={"Authorization": f"Bearer {token}"})
     assert secure.status_code == 200
-    assert secure.json() == {"user": "alice"}
+    user_data = SecureResponse.model_validate(secure.json())
+    assert user_data.user == "alice"
 
 
 def test_upload_url_valid_filename(monkeypatch):
-    monkeypatch.setattr(
-        "backend.main.get_presigned_url", lambda key: "http://example.com/upload"
-    )
-    response = client.get("/upload-url", params={"filename": "good.txt"})
-    assert response.status_code == 200
-    assert response.json()["url"] == "http://example.com/upload"
+    # Patch the presigned URL helper in backend.main
+    monkeypatch.setattr("backend.main.get_presigned_url", lambda key: "http://example.com/upload")
+    resp = client.get("/upload-url", params={"filename": "good.txt"})
+    assert resp.status_code == 200
+    upload_data = UploadURLResponse.model_validate(resp.json())
+    assert upload_data.url == "http://example.com/upload"
 
 
 def test_upload_url_invalid_filename():
-    response = client.get("/upload-url", params={"filename": "../bad.txt"})
-    assert response.status_code == 400
+    resp = client.get("/upload-url", params={"filename": "../bad.txt"})
+    assert resp.status_code == 400

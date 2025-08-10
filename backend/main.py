@@ -15,6 +15,12 @@ from .auth import (
     get_current_user,
 )
 from .storage import get_presigned_url
+from .schemas import (
+    RootResponse,
+    SecureResponse,
+    TokenResponse,
+    UploadURLResponse,
+)
 
 app = FastAPI(title="Livy Backend")
 
@@ -41,29 +47,29 @@ def on_startup() -> None:
 
 
 @app.get("/")
-def read_root():
-    return {"status": "ok"}
+def read_root() -> RootResponse:
+    return RootResponse(status="ok")
 
 
 @app.post("/token")
-def login(form_data: OAuth2PasswordRequestForm = Depends()):
+def login(form_data: OAuth2PasswordRequestForm = Depends()) -> TokenResponse:
     """Authenticate user and issue an access token."""
     hashed_pw = users_db.get(form_data.username)
     if not hashed_pw or not bcrypt.verify(form_data.password, hashed_pw):
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
     access_token = create_access_token({"sub": form_data.username})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return TokenResponse(access_token=access_token, token_type="bearer")
 
 
 @app.get("/secure")
-def secure(current_user: str = Depends(get_current_user)):
+def secure(current_user: str = Depends(get_current_user)) -> SecureResponse:
     """Protected route used for testing token authentication."""
-    return {"user": current_user}
+    return SecureResponse(user=current_user)
 
 
 @app.get("/upload-url")
-def upload_url(filename: str):
+def upload_url(filename: str) -> UploadURLResponse:
     """Return a presigned S3 URL for uploading a file.
 
     The provided ``filename`` must only contain alphanumeric characters, dashes,
@@ -80,4 +86,4 @@ def upload_url(filename: str):
         raise HTTPException(status_code=400, detail="Invalid file extension")
 
     url = get_presigned_url(f"uploads/{filename}")
-    return {"url": url}
+    return UploadURLResponse(url=url)
