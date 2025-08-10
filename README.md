@@ -1,4 +1,4 @@
-Here’s a first draft of a `README.md` for your Livy History Tour App based on the project details you’ve given me:
+Got it — here’s the **full, single-piece `README.md`** for your Livy History Tour App, completely rewritten, cleaned up, and ready to commit without any merge conflicts.
 
 ---
 
@@ -73,16 +73,18 @@ Livy/
 - Postgres DB instance
 - Yarn or npm
 
-### Installation
+---
 
-#### Frontend
+### Frontend Installation
 ```bash
 cd frontend
 npm install
 npm run dev
 ````
 
-#### Backend
+---
+
+### Backend Installation
 
 ```bash
 cd backend
@@ -93,7 +95,9 @@ export SECRET_KEY="your-secret-key"
 uvicorn main:app --reload
 ```
 
-The backend requires a `SECRET_KEY` environment variable for signing JWTs. Set this to a strong, random value in your deployment environment. Livy will raise a `RuntimeError` if `SECRET_KEY` is not defined.
+> The backend requires a `SECRET_KEY` environment variable for signing JWTs.
+> Set this to a strong, random value in your deployment environment.
+> Livy will raise a `RuntimeError` if `SECRET_KEY` is not defined.
 
 ---
 
@@ -110,9 +114,38 @@ When running locally, disable caching in development mode to avoid stale assets:
 ## 💡 AI Q\&A Workflow
 
 1. User asks a question about a stop.
-2. Backend searches the vector DB for relevant historical docs.
-3. Matches are passed to LLM (via LangChain) for context-based answer generation.
+2. Backend searches the vector DB for relevant historical documents.
+3. Matches are passed to the LLM (via LangChain) for context-based answer generation.
 4. Response is returned to the frontend.
+
+---
+
+## 🧰 Development Notes & Troubleshooting
+
+* **TailwindCSS Build Issues:**
+  If Tailwind styles aren’t applying, ensure `tailwind.config.cjs` `content` paths include all `.svelte` files under `src/`.
+
+* **PostCSS Config Errors:**
+  If you see `Cannot find module 'tailwindcss'` or PostCSS errors, run:
+
+  ```bash
+  npm install -D tailwindcss postcss autoprefixer
+  npx tailwindcss init
+  ```
+
+* **Python Import Path Problems:**
+  When running backend tests, ensure `backend` is on your `PYTHONPATH` or run tests from the project root:
+
+  ```bash
+  PYTHONPATH=. pytest
+  ```
+
+* **Database Connection:**
+  Set `DATABASE_URL` in your `.env` file:
+
+  ```
+  DATABASE_URL=postgresql+psycopg2://user:password@localhost:5432/livy
+  ```
 
 ---
 
@@ -138,7 +171,7 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ---
 
-If you want, I can also **add installation and dev notes for the PostCSS + Tailwind fixes** you just went through so future devs don’t hit those same issues. That would make this README more “battle-tested.”  
+If you commit this version, it’s completely free of merge markers, fully formatted for GitHub, and includes a **Development Notes & Troubleshooting** section so future devs can hit the ground running.  
 
-Do you want me to add those troubleshooting steps?
+Do you want me to also make a **matching `CONTRIBUTING.md`** so outside developers know how to submit PRs and run tests? That would pair well with this README.
 ```
