@@ -1,8 +1,9 @@
 # backend/main.py
 
-from hashlib import sha256
 import os
 import re
+
+from passlib.hash import bcrypt
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,7 +28,7 @@ app.add_middleware(
 
 # In-memory user store with hashed passwords for demo purposes
 users_db = {
-    "alice": sha256("secret".encode()).hexdigest(),
+    "alice": bcrypt.hash("secret"),
 }
 
 # Whitelisted extensions for uploads
@@ -47,8 +48,8 @@ def read_root():
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Authenticate user and issue an access token."""
-    hashed_pw = sha256(form_data.password.encode()).hexdigest()
-    if users_db.get(form_data.username) != hashed_pw:
+    hashed_pw = users_db.get(form_data.username)
+    if not hashed_pw or not bcrypt.verify(form_data.password, hashed_pw):
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
     access_token = create_access_token({"sub": form_data.username})
