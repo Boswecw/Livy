@@ -15,6 +15,7 @@ def init_db() -> None:
     if engine.url.get_backend_name().startswith("postgresql"):
         with engine.begin() as conn:
             conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+    from . import models  # noqa: F401
     Base.metadata.create_all(bind=engine)
 
 def get_db():
