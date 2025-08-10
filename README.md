@@ -89,8 +89,11 @@ cd backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+export SECRET_KEY="your-secret-key"
 uvicorn main:app --reload
 ```
+
+The backend requires a `SECRET_KEY` environment variable for signing JWTs. Set this to a strong, random value in your deployment environment. Livy will raise a `RuntimeError` if `SECRET_KEY` is not defined.
 
 ---
 

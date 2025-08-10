@@ -2,8 +2,11 @@
 import os
 import sys
 
+os.environ.setdefault("SECRET_KEY", "test-secret")
+
 from fastapi.testclient import TestClient
 from passlib.hash import bcrypt
+import pytest
 
 # Make "backend" importable when running `pytest` from repo root
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -58,3 +61,12 @@ def test_upload_url_valid_filename(monkeypatch):
 def test_upload_url_invalid_filename():
     resp = client.get("/upload-url", params={"filename": "../bad.txt"})
     assert resp.status_code == 400
+
+
+def test_missing_secret_key(monkeypatch):
+    import importlib
+    import backend.auth as auth
+
+    monkeypatch.delenv("SECRET_KEY", raising=False)
+    with pytest.raises(RuntimeError):
+        importlib.reload(auth)
