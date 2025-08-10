@@ -24,11 +24,17 @@ from .schemas import (
 
 app = FastAPI(title="Livy Backend")
 
+# Read CORS settings from environment variables with sensible defaults
+_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
+allow_origins = [origin.strip() for origin in _origins.split(",") if origin.strip()]
+allow_credentials = os.getenv("ALLOW_CREDENTIALS", "false").lower() == "true"
+allow_methods = [m.strip() for m in os.getenv("ALLOW_METHODS", "*").split(",") if m.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://example.com"],
-    allow_credentials=False,
-    allow_methods=["*"],
+    allow_origins=allow_origins,
+    allow_credentials=allow_credentials,
+    allow_methods=allow_methods,
     allow_headers=["*"],
 )
 
